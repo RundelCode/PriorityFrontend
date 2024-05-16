@@ -1,13 +1,14 @@
 // Learn more about createBottomTabNavigator:
 // https://reactnavigation.org/docs/bottom-tab-navigator
+import { StyleSheet, Image } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useColorScheme } from "react-native";
-
 import Colors from "../constants/Colors";
-import TabOneScreen from "../screens/TabOneScreen";
+import StartScreen from "../screens/StartScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
+import searchIcon from "../assets/images/Search.png"
 
 const BottomTab = createBottomTabNavigator();
 
@@ -16,16 +17,16 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Start"
       screenOptions={{ tabBarActiveTintColor: Colors[colorScheme].tint }}
     >
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneNavigator}
+        name="Start"
+        component={StartNavigator}
         options={{
           headerShown: false,
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
+            <Image source={searchIcon} style={styles.icon} />
           ),
         }}
       />
@@ -35,7 +36,7 @@ export default function BottomTabNavigator() {
         options={{
           headerShown: false,
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
+            <Image source={searchIcon} style={styles.icon} />
           ),
         }}
       />
@@ -51,17 +52,17 @@ function TabBarIcon(props) {
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator();
+const StartStack = createStackNavigator();
 
-function TabOneNavigator() {
+function StartNavigator() {
   return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneScreen}
-        options={{ headerTitle: "Tab One Title" }}
+    <StartStack.Navigator>
+      <StartStack.Screen
+        name="StartScreen"
+        component={StartScreen}
+        options={{ headerShown: false}}
       />
-    </TabOneStack.Navigator>
+    </StartStack.Navigator>
   );
 }
 
@@ -73,8 +74,15 @@ function TabTwoNavigator() {
       <TabTwoStack.Screen
         name="TabTwoScreen"
         component={TabTwoScreen}
-        options={{ headerTitle: "Tab Two Title" }}
+        options={{ headerShown: false}}
       />
     </TabTwoStack.Navigator>
   );
 }
+
+const styles = StyleSheet.create({
+  icon: {
+    height: 20,
+    width: 20
+  },
+});
